@@ -1,7 +1,9 @@
 package com.zeroBank.pages;
 
 import com.zeroBank.utilities.BrowserUtils;
+import org.junit.Assert;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.CacheLookup;
 import org.openqa.selenium.support.FindBy;
 
 public class LoginPage extends BasePage{
@@ -18,6 +20,10 @@ public class LoginPage extends BasePage{
     @FindBy(css = "[type='submit']")
     private WebElement loginButton;
 
+    @FindBy(css = ".alert.alert-error")
+    @CacheLookup
+    private WebElement warningMessage;
+
     public void clickOnSignInButton(){
         BrowserUtils.clickWithJS(signInButton);
     }
@@ -26,6 +32,15 @@ public class LoginPage extends BasePage{
         BrowserUtils.clearAndSendKeys(loginBox,username);
         BrowserUtils.clearAndSendKeys(passwordBox,password);
         BrowserUtils.clickWithJS(loginButton);
+    }
+
+    public String getWarningMessageText(){
+        return BrowserUtils.getText(warningMessage);
+    }
+
+    public void assertWarningMessage(String expectedMessage){
+        String actualMessage=getWarningMessageText();
+        Assert.assertEquals(expectedMessage,actualMessage);
     }
 }
 

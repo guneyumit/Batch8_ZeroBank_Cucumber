@@ -2,6 +2,7 @@ package com.zeroBank.stepDefs;
 
 import com.zeroBank.pages.HomePage;
 import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
 import org.junit.Assert;
 
 public class Home_StepDefs {
@@ -12,5 +13,10 @@ public class Home_StepDefs {
         String actualUsername = homePage.getUserNameText();
         String expectedUsername=username;
         Assert.assertEquals(expectedUsername,actualUsername);
+    }
+
+    @When("The user navigates to {string} tab menu")
+    public void the_user_navigates_to_tab_menu(String tabMenu) {
+        homePage.navigatesTabMenu(tabMenu);
     }
 }
